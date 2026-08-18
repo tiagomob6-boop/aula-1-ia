@@ -9,9 +9,9 @@ const startBtn = document.getElementById('startBtn');
 const pauseBtn = document.getElementById('pauseBtn');
 
 // Tamanho da grade
-const CELL_SIZE = 20;
 const COLS = 28;
 const ROWS = 21;
+let CELL_SIZE = 20;  // Será calculado dinamicamente
 
 // Estados do jogo
 let gameRunning = false;
@@ -453,3 +453,22 @@ function draw() {
 // Inicialização
 statusDiv.textContent = 'Clique em "Iniciar Jogo" para começar!';
 draw();
+
+// Redimensionar canvas para tela cheia
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    // Calcular tamanho da célula para preencher a tela
+    const cellSizeByWidth = Math.floor(canvas.width / COLS);
+    const cellSizeByHeight = Math.floor(canvas.height / ROWS);
+    CELL_SIZE = Math.min(cellSizeByWidth, cellSizeByHeight);
+    
+    // Garantir tamanho mínimo
+    if (CELL_SIZE < 10) CELL_SIZE = 10;
+    
+    draw();
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
