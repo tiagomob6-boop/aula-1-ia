@@ -58,6 +58,17 @@ let maze = [
 let pellets = [];
 let powerUps = [];
 
+function wrapPosition(x, y) {
+    if (y === 10 && (x < 0 || x >= COLS)) {
+        return {
+            x: x < 0 ? COLS - 1 : 0,
+            y,
+        };
+    }
+
+    return { x, y };
+}
+
 // Classe Pac-Man
 class PacMan {
     constructor(x, y) {
@@ -104,15 +115,20 @@ class PacMan {
         if (this.direction === 3) newX--; // esquerda
         if (this.direction === 4) newX++; // direita
 
+        const wrapped = wrapPosition(newX, newY);
         if (this.canMove(newX, newY, this.direction)) {
-            this.x = newX;
-            this.y = newY;
+            this.x = wrapped.x;
+            this.y = wrapped.y;
         }
 
         this.mouthOpen = !this.mouthOpen;
     }
 
     canMove(x, y, dir) {
+        const wrapped = wrapPosition(x, y);
+        x = wrapped.x;
+        y = wrapped.y;
+
         if (x < 0 || x >= COLS || y < 0 || y >= ROWS) return false;
         if (maze[y][x] === 1) return false;
         return true;
@@ -194,6 +210,10 @@ class Ghost {
         if (this.direction === 2) newY++;
         if (this.direction === 3) newX--;
         if (this.direction === 4) newX++;
+
+        const wrapped = wrapPosition(newX, newY);
+        newX = wrapped.x;
+        newY = wrapped.y;
 
         if (newX >= 0 && newX < COLS && newY >= 0 && newY < ROWS && maze[newY][newX] !== 1) {
             this.x = newX;
@@ -364,7 +384,8 @@ function gameLoop() {
         if (pacman && ghost.x === pacman.x && ghost.y === pacman.y) {
             if (pacman.isInvincible) {
                 // Pac-Man come o fantasma enquanto invencível
-                score += 200;
+                score += 500;
+                statusDiv.textContent = '💥 Fantasma comido! +500 pontos!';
                 ghosts.splice(i, 1);
                 // Spawnar novo fantasma após um tempo
                 setTimeout(() => {
