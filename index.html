@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 PAC-MAN</h1>
+            <div class="info">
+                <div class="score">Pontuação: <span id="score">0</span></div>
+                <div class="lives">Vidas: <span id="lives">3</span></div>
+                <div class="level">Nível: <span id="level">1</span></div>
+            </div>
+        </div>
+        
+        <canvas id="gameCanvas" width="560" height="420"></canvas>
+        
+        <div class="controls">
+            <p>Use as <strong>SETAS</strong> para mover Pac-Man</p>
+            <p>Colete as bolinhas amarelas e evite os fantasmas!</p>
+            <p>🍎 <strong>Frutas de Poder</strong> deixam você invencível por um tempo!</p>
+            <button id="startBtn">Iniciar Jogo</button>
+            <button id="pauseBtn">Pausar</button>
+        </div>
+        
+        <div class="status" id="status">Clique em "Iniciar Jogo" para começar!</div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
