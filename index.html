@@ -1,34 +1,47 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pac-Man</title>
+    <meta name="description" content="Jogo de Pac-Man desenvolvido em JavaScript e Canvas.">
+    <title>Pac-Man | Jogo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
+    <!-- Contêiner principal: reúne o painel de informações, o tabuleiro e os controles. -->
+    <main class="container">
+        <!-- Cabeçalho fixo com o título e os indicadores atualizados pelo game.js. -->
+        <header class="header">
             <h1>🎮 PAC-MAN</h1>
-            <div class="info">
+
+            <!-- Cada valor recebe um ID para que a pontuação seja atualizada em tempo real. -->
+            <section class="info" aria-label="Informações da partida">
                 <div class="score">Pontuação: <span id="score">0</span></div>
                 <div class="lives">Vidas: <span id="lives">3</span></div>
                 <div class="level">Nível: <span id="level">1</span></div>
-            </div>
-        </div>
-        
-        <canvas id="gameCanvas"></canvas>
-        
-        <div class="controls">
+            </section>
+        </header>
+
+        <!-- O game.js desenha o labirinto, Pac-Man, os fantasmas e os itens neste canvas. -->
+        <canvas id="gameCanvas" aria-label="Tabuleiro do jogo Pac-Man">
+            Seu navegador não suporta o elemento canvas.
+        </canvas>
+
+        <!-- Painel de instruções e ações da partida. -->
+        <section class="controls" aria-label="Controles do jogo">
             <p>Use as <strong>SETAS</strong> para mover Pac-Man</p>
             <p>Colete as bolinhas amarelas e evite os fantasmas!</p>
             <p>🍎 <strong>Frutas de Poder</strong> deixam você invencível por um tempo!</p>
-            <button id="startBtn">Iniciar Jogo</button>
-            <button id="pauseBtn">Pausar</button>
-        </div>
-        
-        <div class="status" id="status">Clique em "Iniciar Jogo" para começar!</div>
-    </div>
+            <!-- Esses IDs são usados pelo game.js para iniciar e pausar o loop do jogo. -->
+            <button id="startBtn" type="button">Iniciar Jogo</button>
+            <button id="pauseBtn" type="button">Pausar</button>
+        </section>
+
+        <!-- Mensagens de início, pausa, colisão e fim de jogo aparecem neste elemento. -->
+        <aside class="status" id="status" role="status" aria-live="polite">
+            Clique em "Iniciar Jogo" para começar!
+        </aside>
+    </main>
 
     <script src="game.js"></script>
 </body>
