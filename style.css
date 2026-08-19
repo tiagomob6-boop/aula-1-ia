@@ -61,7 +61,7 @@ h1 {
     flex-wrap: wrap;
 }
 
-.score, .lives, .level {
+.score, .high-score, .lives, .level {
     color: #00ff00;
     font-size: 0.75em;
     font-weight: bold;

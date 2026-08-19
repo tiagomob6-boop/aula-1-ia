@@ -2,6 +2,7 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreSpan = document.getElementById('score');
+const highScoreSpan = document.getElementById('highScore');
 const livesSpan = document.getElementById('lives');
 const levelSpan = document.getElementById('level');
 const statusDiv = document.getElementById('status');
@@ -17,6 +18,7 @@ let CELL_SIZE = 20;  // Será calculado dinamicamente
 let gameRunning = false;
 let gamePaused = false;
 let score = 0;
+let highScore = Number.parseInt(localStorage.getItem('pacmanHighScore') || '0', 10);
 let lives = 3;
 let level = 1;
 let pelletsRemaining = 0;
@@ -343,7 +345,13 @@ pauseBtn.addEventListener('click', () => {
 
 // Atualizar interface
 function updateUI() {
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('pacmanHighScore', String(highScore));
+    }
+
     scoreSpan.textContent = score;
+    highScoreSpan.textContent = highScore;
     livesSpan.textContent = lives;
     levelSpan.textContent = level;
 }
@@ -473,6 +481,7 @@ function draw() {
 
 // Inicialização
 statusDiv.textContent = 'Clique em "Iniciar Jogo" para começar!';
+updateUI();
 draw();
 
 // Redimensionar canvas para tela cheia
