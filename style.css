@@ -109,6 +109,27 @@ h1 {
     color: #ffff00;
 }
 
+.touch-controls {
+    display: none;
+    grid-template-columns: repeat(3, 42px);
+    gap: 5px;
+    justify-content: center;
+    margin: 8px auto;
+}
+
+.direction-button {
+    display: block !important;
+    width: 42px !important;
+    height: 36px;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 1.1em !important;
+}
+
+.direction-button.up {
+    grid-column: 2;
+}
+
 .controls button {
     background: linear-gradient(135deg, #00ff00, #00cc00);
     color: #000;
@@ -173,5 +194,9 @@ h1 {
     .controls button {
         padding: 10px 15px;
         font-size: 0.9em;
+    }
+
+    .touch-controls {
+        display: grid;
     }
 }

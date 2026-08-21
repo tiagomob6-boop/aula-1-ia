@@ -8,6 +8,7 @@ const levelSpan = document.getElementById('level');
 const statusDiv = document.getElementById('status');
 const startBtn = document.getElementById('startBtn');
 const pauseBtn = document.getElementById('pauseBtn');
+const directionButtons = document.querySelectorAll('[data-direction]');
 
 // Tamanho da grade
 const COLS = 28;
@@ -303,19 +304,31 @@ function initGame() {
 
 // Controles do teclado
 const keys = {};
+function setDirection(direction) {
+    if (pacman) pacman.nextDirection = direction;
+}
+
 document.addEventListener('keydown', (e) => {
     keys[e.key] = true;
 
-    if (pacman) {
-        if (e.key === 'ArrowUp') pacman.nextDirection = 1;
-        if (e.key === 'ArrowDown') pacman.nextDirection = 2;
-        if (e.key === 'ArrowLeft') pacman.nextDirection = 3;
-        if (e.key === 'ArrowRight') pacman.nextDirection = 4;
-    }
+    const directions = {
+        ArrowUp: 1,
+        ArrowDown: 2,
+        ArrowLeft: 3,
+        ArrowRight: 4,
+    };
+
+    if (directions[e.key]) setDirection(directions[e.key]);
 });
 
 document.addEventListener('keyup', (e) => {
     keys[e.key] = false;
+});
+
+directionButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        setDirection(Number(button.dataset.direction));
+    });
 });
 
 // Botões
@@ -328,7 +341,7 @@ startBtn.addEventListener('click', () => {
         level = 1;
         initGame();
         updateUI();
-        statusDiv.textContent = 'Jogo iniciado! Use as setas para mover.';
+        statusDiv.textContent = 'Jogo iniciado! Use as setas ou os controles de toque.';
         pauseBtn.textContent = 'Pausar';
         gameLoop();
     }
